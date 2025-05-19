@@ -50,6 +50,7 @@ proyecto_final/
 │   ├── __init__.py            # Indica que es un paquete Python
 │   ├── test_gestion_usuarios.py  # Pruebas para la lógica de usuarios
 │
+├── cli.py                     # Interfaz de línea de comandos
 ├── main.py                    # Punto de entrada principal del programa
 ├── requirements.txt           # Dependencias del proyecto
 ├── README.md                  # Documentación del proyecto
@@ -59,10 +60,10 @@ proyecto_final/
 ## Ejecución
 
 1. Asegúrese de que el entorno virtual esté activado.
-2. Ejecute el archivo principal:
+2. Ejecute la CLI:
 
    ```bash
-   python main.py
+   python cli.py
    ```
 
 ## Pruebas Unitarias
@@ -73,6 +74,40 @@ proyecto_final/
    ```bash
    python -m unittest discover tests
    ```
+
+## Nueva Arquitectura (2025)
+
+A partir de la versión actual, la lógica de negocio y la interfaz de usuario están separadas:
+
+- **gestion_usuarios/gestion_usuarios.py**: Lógica pura de gestión de usuarios (sin input/print).
+- **cli.py**: Interfaz de línea de comandos (CLI), maneja toda la interacción con el usuario.
+
+## Seguridad: Contraseñas con Hash
+
+- Las contraseñas se almacenan como hash SHA-256, nunca en texto plano.
+- El proceso de login compara el hash de la contraseña ingresada con el almacenado.
+
+## Proceso de Login
+
+1. Selecciona la opción "Login" en el menú.
+2. Ingresa email y contraseña.
+3. Si los datos son correctos, el sistema autentica al usuario.
+
+## Ejemplo de JSON de usuarios
+
+```json
+[
+    {
+        "nombre": "Juan Perez",
+        "email": "juan.perez@example.com",
+        "contrasena": "ef92b778bafe771e89245b89ecbc08a44a4e166c06659911881f383d4473e94f"
+    }
+]
+```
+
+## Cambios en los tests
+
+- Los tests verifican que las contraseñas estén hasheadas, el login funcione y no dependen de input/output.
 
 ## Mejoras Implementadas
 
